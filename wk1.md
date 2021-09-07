@@ -42,3 +42,8 @@ Can be 1-many, 1-1, many-many
   * New table has each ID related as needed (using each existing PK from 1-side as the FK on the MANY-side)
 * Composite primary key (CPK) uses multiple field
   * create a combination of two PKs to uniquely ID each student/advisor combination
+
+
+## Running SQL Server in Docker
+
+anneclaflin@Annes-Air ~ % docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sql@Wsxcde3" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest-ubuntu 
