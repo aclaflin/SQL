@@ -1,7 +1,7 @@
 # Purpose of a database
 Keep track of things
 
-unlike list or spreadsheet (flat file), DB stores info that is more complicated than a simple list
+Unlike a list or spreadsheet (flat file), DB stores info that is more complicated than a simple list
 
 DB is backend of all information access, accessed in different ways
 
@@ -14,13 +14,15 @@ Multiple themes - different subjects
 
 Relational databases store related data in tables - avoids redundancy, maintenance problems
 
+Data integrity is critical - accuracy
+
 # Design process
 1. Define themes/subjects/subjects/entities/relations
 1. Put each attribute (column or field) into respective theme (table)
 1. Define a primary key for each theme/table (unique identifier for each record within a table, MUST be unique, CANNOT be NULL, every table MUST have primary key, can use attribute or auto generated surrogate ID)
-1. Determine relationships between themes/tables (define or add a foreign key, business rules (how you operate) defines relationships between tables))
+1. Determine relationships between themes/tables (define or add a foreign key, business rules (how you operate) defines relationships between tables)
 
-Crows foot schema - entity relationship (ER) (picture of design)
+Crows foot schema - data model, entity relationship (ER) (picture of design)
 
 one student has one advisor, one advisor has many students 
 * advisors is 1-side/primary/parent, students is the MANY-side/related table/child
@@ -33,15 +35,32 @@ Can be 1-many, 1-1, many-many
 * *FK goes on MANY side of 1-MANY*
 * *Must create an intersection or linking table for MANY-MANY*
 
-## Linking table
+## Linking table/cross-reference table/junction/intersection
 * Take out direct relationship, create a new table
 * Break **MANY-MANY** into **two 1:MANY relationships**
   * one student can relate to multiple advisors
   * one advisor can relate to multiple students
   * one student has one ID, one advisor has one ID
   * New table has each ID related as needed (using each existing PK from 1-side as the FK on the MANY-side)
-* Composite primary key (CPK) uses multiple field
-  * create a combination of two PKs to uniquely ID each student/advisor combination
+* Composite primary key (CPK) uses multiple fields
+  * could create a combination of two PKs to uniquely ID each student/advisor combination
+  * usually just leave in two independent fields
+          
+## writing out data model long hand
+TABLE NAME (column name, column name, underline PK, ital FK)
+
+## SQL (structured query language
+retrieve, insert, delete, modify
+
+# Components of database system
+* users - enter, query, make reports
+* database application - allow users to interact, data entry forms, reports
+* DBMS database management system - intermediary, create and administer, security, backup and restore
+* database - where data is stored, self-describing collection of related records
+ * metadata describes structure (relationship diagram, tables, columns, keys, types, constraints
+
+* personal or enterprise scale
+
 
 
 ## Running SQL Server in Docker
