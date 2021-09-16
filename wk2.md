@@ -136,3 +136,11 @@ BCNF - Boyce Codd Normal Form
 3. Define PK for each table defined
 4. Define DIRECT relationship between tables
  * Add FK
+
+
+## ER diagrams
+
+![image](https://user-images.githubusercontent.com/8172631/133635357-51ce2305-25b1-4d02-8a48-10334a62af9b.png)
+
+![image](https://user-images.githubusercontent.com/8172631/133635470-86afe9bd-88f8-41a0-9297-3740ba5de915.png)
+
