@@ -84,6 +84,10 @@ NumberOfBoxes -> CookieCost
 * functional dependence = attribute/field functionally defined by determinant
 * Every determinate must be a candidate key
 
+
+
+
+
 ## Normalization 
 Apply a process for breaking a table or relation with more than one theme into set of tables where each has one theme, normalizing relations, removing redundancies
 
@@ -95,6 +99,23 @@ Apply a process for breaking a table or relation with more than one theme into s
 	* Leave a copy of the determinant in the original relation as foreign key
 	* Create referential integrity constraint between new and original relations
 4. Repeat until every determinant of every relation is a candidate key
+
+```r
+PRESCRIPTION (PrescriptionNumber, Date, Drug, Doseage, CustomerName, CustomerPhone, CustomerEmailAddress)
+
+#The only candidate key is PrescriptionNumber)
+#ID functional dependencies
+
+CustomerEmailAddress -> (CustomerName, CustomerPhone)
+
+#CustomerEmailAddress is determinant. CustomerName and CustomerPhone are functionally dependent on CustomerEmailAddress.
+#Split relation
+
+CUSTOMER (_CustomerEmailAddess_, CustomerName, CustomerPhone)
+PRESCRIPTION (_PrescriptionNumber, Date, Drug, Dosage, *CustomerEmailAddress*)
+
+#Neither relation has a determinant that is not a candidtae key => relations are normalized
+```
 
 *Multivalued dependencies (shown with double arrow ->->) 
 * *Determinant of multivalued dependencies can never be the primary key
@@ -117,18 +138,30 @@ Well-formed relations are in Boyce-Codd Normal Form (BCNF)
 	* Is table 1NF and are all non-key attributes determined only by the entire primary key?
 		* Problem solved by 2NF can only occur in a table with a composite primary key
 		* If the table has a single column PK, this problem cannot occur and if 1NF, then also 2NF
-
 	* If only one PK per relation (table) - is 2NF
   * Cannot have partial dependencies if no composite primary key 
 
 3NF - remove determinants (redundancies)
 * remove determinants (fields that are defined by something other than PK)
+* Is 3NF if 2NF and there are no non-key attributes determined by another nonkey attribute
+* Even 3NF can have anomolies
 
 BCNF - Boyce Codd Normal Form
+* Is the table 3NF and are all the determinatants also candidate keys?
+* I swera to construct my tables so that all nonkey columns are dependent on 
+	* the key (1NF)
+	* the whole key (2NF)
+	* and nothing but the key (3NF and BCNF)
 
 4NF
+* Have multiple values determined by multivalues dependency been moved to a separate table?
 
 5NF
+* eliminates problem where tables were split apart but incorrectly joined
+
+Domain/key normal form (DK/NF)
+* All constraints on data values be logical implications of the definition of domains and keys
+* Basically synonymous with BCNF
 
 ## Steps to DB design
 1. Gather data to be stored - Fields
