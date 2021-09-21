@@ -11,7 +11,7 @@ SQL is not a programming language, but is a data sublanguage
 * transaction control language
 * data control language
 
-```
+```SQL
 
 -- Display vendors that do not have NULL values
 
