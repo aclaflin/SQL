@@ -398,5 +398,10 @@ SELECT 	cust_contact
 FROM 	customers
 WHERE 	cust_contact NOT LIKE '[JM]%'
 
-
 ```
+
+wildcard tips
+
+* don't over use
+* don't use at start of search unless necessary (slow to process)
+* pay attn to placement (it is exact pattern matching)
