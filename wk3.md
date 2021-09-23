@@ -325,42 +325,78 @@ WHERE	cust_state IN ('MI', 'MN', 'OH')			-- more efficient
 ;
 
 
--- ********************** wild cards used for Pattern match in WHERE 
--- ********************** must use LIKE with wild card 
+-- ******* wild cards used for Pattern match in WHERE 
+-- ******* must use LIKE with wild card 
 --              % - represents any number of characters:  
---							WHERE Prod_Name LIKE 'P%'
+--			WHERE Prod_Name LIKE 'P%'
+--			% means any number of characters before/after what is given (P% means anything starting with P)
+--
 --              _ - one character
--- 							WHERE title LIKE '201_ Yearly Report'
---				[] - used for multiple characters 
---							WHERE l_name LIKE '[ad]%'
---						returns Anderson, Anders, Dane, Downey
---				[a-d]	or a range of characters
---							WHERE l_name LIKE '[a-d]%'
---						returns Anderson, Anders, Bailey, Chandler, Dane, Downey
+-- 			WHERE title LIKE '201_ Yearly Report'
+--		
+--		[] - used for multiple characters 
+--			WHERE l_name LIKE '[ad]%'
+--				returns Anderson, Anders, Dane, Downey
+--
+--			[a-d]	or a range of characters
+--				WHERE l_name LIKE '[a-d]%'
+--				returns Anderson, Anders, Bailey, Chandler, Dane, Downey
+--
+--		[^] - any character NOT in the specified range or set
 
 /* Display ID and product name for products that start with ‘fish’. */
-SELECT 	prod_id,  prod_name
-FROM 		products
+SELECT 	prod_id
+	,  prod_name
+FROM 	products
+WHERE	prod_name LIKE 'fish%' 		-- wildcard character included in the string (very literal about spaces, 'fish %' would not include fishing)
 
 
 /* Display ID and product name for products that include the words with ‘bean bag’. */
-SELECT 		prod_id,  prod_name
-FROM 		products
+SELECT 	prod_id
+	,  prod_name
+FROM 	products
+WHERE prod_name LIKE '%bean bag%'
+
 		
 /* Display ID and product name for products that start with ‘f’ and end with ‘y’. */
-SELECT 	prod_id,  prod_name
+SELECT 	prod_id
+	,  prod_name
 FROM 	products
+WHERE 	prod_name LIKE 'f%y'  		-- doesn't work because data was imported in a fixed width column so there are actual spaces in column 
+
+-- Have to use RTRIM  to remove whitespace
+-- functions are built in code that can be called and executed
+-- NAME(argument1, argument 2)
+
+SELECT 	prod_id
+	,  prod_name
+FROM 	products
+WHERE 	rtirm(prod_name) LIKE 'f%y'
+
 
 
 /* Display ID and product name for products that end with ‘X inch teddy bear’. */
 SELECT 	prod_id,  prod_name
 FROM 	products
+WHERE	rtrim(prod_name) LIKE '_ inch teddy bear'
 
-
+-- syntax to get X or XX inch
+-- '__ inch teaddy bear' returns XX inch...
+-- could use %
+-- could use or clause '_
 		
 /* Display customer contacts that do not start with the letter ‘J’ or ‘M’. */
 -- ^ will negate selection
+
 SELECT 	cust_contact
 FROM 	customers
+WHERE 	cust_contact LIKE '[^JM]%'
+
+-- or
+
+SELECT 	cust_contact
+FROM 	customers
+WHERE 	cust_contact NOT LIKE '[JM]%'
+
 
 ```
