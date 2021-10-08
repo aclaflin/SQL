@@ -1,9 +1,17 @@
 ## Review
-* Select
-* From
-* Where
+* SELECT
+* FROM
+* WHERE
+* GROUP BY
+* HAVING
+* ORDER BY
+* Comparison operators:
+	* =, !=, <>, <, >, <=, >=, IM, NOT IN, BETWEEN, NOT BETWEEN, LIKE, NOT LIKE, IS NULL, IS NOT NULL
 * relational operators
-* logical operators
+* Aggregate functions
+ 	* COUNT, SUM, AVG, MIN, MAX
+ * logical operators
+	* AND, OR, NOT
 * wild cards
 
 # Objectives
@@ -124,27 +132,44 @@ _Time and Date_
 * DATEPART(interval, fieldname()) - returns part of date specified by interval (yyyy, mm, dd)
 * DATEDIFF(interval, date1, date2) - returns difference between two dates
 
-## Joins
+## Multiple table queries
+
+### Joins
 Joins are one of the most important operations - understanding joins and syntax is extremely important to learning SQL. More on this in coming weeks.
 
 Joins retreive data from multiple tables. It can be written in multiple formats (FROM or WHERE).
+
+A CROSS JOIN (Cartesian product) joins every possible combination
+
+```SQL
+SELECT 	Field1, Field2, ...
+FROM 	Table1, Table2		-- Returns garbage
+
+-- Adding WHERE table1.PK=table2.FK creates an inner join
+
+SELECT 	Field1, Field2, ...
+FROM 	Table1, Table2	
+WHERE table1.PK=table2.FK
+```
 
 When fields from multiple tables are required, you must include the table names in the FROM clause and join the PK and FK
 
 ```SQL
 -- These do the same thing:
 
-WHERE table1.PK=table2.FK
+WHERE table1.PK=table2.FK			-- implicit join
 
-FROM table1 INNER JOIN table2 ON table1.PK=table2.FK
+FROM table1 INNER JOIN table2 
+		ON table1.PK=table2.FK		-- explicit join
 ```
 
 ![image](https://user-images.githubusercontent.com/8172631/136593386-b155e0e9-91e4-49d5-94fc-374126c7caed.png)
 
-## Subqueries
+### Subqueries
 
 The result of a query is a relation, thus, a query may feed another query. Subqueries are used when more than one returned recordset in needed to evaluate criteria.
 
+They are easier to write and understand than JOINS, 
 ```SQL
 -- What customers placed orders in Feb and May?
 
@@ -159,9 +184,28 @@ WHERE 	cust_id IN
 		FROM orders
 		WHERE Month(OrderDate) = 5
 ```
-## Self joins
+### Self joins
 When comparing a recordset to itself
 
+## Data modification and deletion
+
+UPDATE...SET
+```SQL
+UPDATE	TableName
+SET	Field1 = 'new data'
+WHERE	PK = KEY
+
+-- WHERE is critical - otherwise will change all!
+```
+
+DELETE works the same way, but may fail because of data that must be in other tables
+
+Table and constraint modification
+* DROP TABLE
+* ALTER TABLE
+* TRUNCATE TABLE
+ 
+ 
 # Class Scripts
 ```SQL
 /* Calculated Fields / Aggregate Functions / GROUP BY clause */
