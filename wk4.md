@@ -10,22 +10,100 @@
 * Calculated fields
 * Aggregate functions 
 
+*Data definition language (DDL)* used to create tables, relationships, and other structures
+
+*Data manipulation language (DML)* used for querying, inserting, modifying, and deleting data. Includes SQL Views which are used to create predefined queries.
+
+## Creating tables and relationships
+```SQL
+CREATE TABLE NewTableName (
+	ColumnName	DataType	OptionalColumnConstraints,
+	ColumnName	DataType	OptionalColumnConstraints,
+	...
+	optional table constraints
+	...
+	);
+```
+Many data types are available
+
+Column constraints include PRIMARY KEY, FOREIGN KEY, NOT NULL, NULL, UNIQUE, DEFAULT
+* NOT NULL means the value is required
+* NULL means not required
+* UNIQUE means there cannot be duplicated values
+* DEFAULT enters content if nothing provided
+
+Defining primary keys
+```SQL
+-- Two methods:
+
+-- Column constraint:
+CREATE TABLE TableName(
+	Field1	DataType	PRIMARY KEY,
+	Field2	DataType	NOT NULL,
+	...);
+	
+-- Table constraint:
+CREATE TABLE TableName(
+	Field1	DataType	NOT NULL AUTO_INCREMENT,
+	Field2	DataType	NOT NULL,
+	Field3	DataType	NOT NULL UNIQUE,
+	...
+	CONSTRAINT	Table_PK	PRIMARY KEY(Field1)
+	);
+```
+
+Defining Foreign keys
+```SQL
+CREATE TABLE TableName(
+	Field1	DataType	NOT NULL AUTO_INCREMENT,
+	Field2	DataType	NOT NULL,
+	Field3	DataType	NOT NULL UNIQUE,
+	...
+	CONSTRAINT	TableName_PK		PRIMARY KEY(Field1)
+	CONSTRAINT	Table1_Table2_FK	FOREIGN KEY(Field2
+				REFERENCES	ChildTable(FieldName)
+					ON UPDATE CASCADE		-- INSTRUCTIONS FOR WHAT TO DO WITH UPDATES
+					-- ON UPDATE NO ACTION
+					-- ON DELETE CASCADE
+					-- ON DELETE NO ACTION
+	);
+```
+
+## Data manipulation
+
+Inserting data
+```SQL
+INSERT INTO TableName VALUES ('char', 'date', integer, numeric)
+
+-- To specify columns
+
+INSERT INTO TableName (Field1, Field2)
+VALUES ('char', 'date')
+
+-- Order of data and columns must match, but does not need to match order in table
+```
+ 
+
 ## Calculated fields 
 Creating new fields to create calculations as an output
 
 Written in SELECT clause and given a name using the following syntax
-(Find and finish writing out)
-```r
+```SQL
 SELECT  field1
-
-
+	, field2*field3 AS Alias
+FROM	table
+;
 ```
 
 _Concatenating fields_
-```r
-SELECT cust_city+', '+sut_state+' '+cust_zip
+```SQL
+SELECT cust_city+', '+cust_state+' '+cust_zip
 AS Customer Address
 From Customers;
+
+SELECT CONCAT(cust_city, ', ', cust_state, ' ', cust_zip) AS CustomerAddress
+FROM Customers
+;
 ```
 
 ## Aggregate functions
@@ -45,12 +123,48 @@ _Time and Date_
 * HOUR()
 * DATEPART(interval, fieldname()) - returns part of date specified by interval (yyyy, mm, dd)
 * DATEDIFF(interval, date1, date2) - returns difference between two dates
-* 
+
+## Joins
+Joins are one of the most important operations - understanding joins and syntax is extremely important to learning SQL. More on this in coming weeks.
+
+Joins retreive data from multiple tables. It can be written in multiple formats (FROM or WHERE).
+
+When fields from multiple tables are required, you must include the table names in the FROM clause and join the PK and FK
 
 ```SQL
-/* April 4, 2017 - Calculated Fields / 
-Aggregate Functions / GROUP BY clause */
+-- These do the same thing:
 
+WHERE table1.PK=table2.FK
+
+FROM table1 INNER JOIN table2 ON table1.PK=table2.FK
+```
+
+![image](https://user-images.githubusercontent.com/8172631/136593386-b155e0e9-91e4-49d5-94fc-374126c7caed.png)
+
+## Subqueries
+
+The result of a query is a relation, thus, a query may feed another query. Subqueries are used when more than one returned recordset in needed to evaluate criteria.
+
+```SQL
+-- What customers placed orders in Feb and May?
+
+SELECT 	cust_name
+FROM 	customers 
+WHERE 	cust_id IN 
+		(SELECT cust_id
+		FROM orders
+		WHERE Month(OrderDate) = 2
+	AND
+		(SELECT cust_id
+		FROM orders
+		WHERE Month(OrderDate) = 5
+```
+## Self joins
+When comparing a recordset to itself
+
+# Class Scripts
+```SQL
+/* Calculated Fields / Aggregate Functions / GROUP BY clause */
 
 USE TeachSQL;
 
