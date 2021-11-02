@@ -43,9 +43,6 @@ Recursive relationships (self joins)
 ![image](https://user-images.githubusercontent.com/8172631/139881832-c4036295-2552-499b-b099-09004dca8470.png)
 
 # Database design
-
-![image](https://user-images.githubusercontent.com/8172631/139872932-f64ae2f9-5b16-462b-8c32-27ad5dc174ee.png)
-
 Business needs determine design
 
 Data model is just business view (no primary/foreign keys named)
