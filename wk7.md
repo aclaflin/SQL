@@ -1,7 +1,7 @@
 # Data modeling and the entity-relational model
 
 ## Entity class v entity instance
-* Class is a collection of entities and provides the structure
+* Class is a collection of entities and provides the structure (table)
 * Attributes are fields
 * Identifiers (primary keys)
 * Instance is a record
@@ -19,9 +19,9 @@ Binary relationships
 * optional (O) or mandatory (|) and one/many
 
 A supplier does not have to supply an item (O) and an item must have a supplier (|)
-* Item (O)  <M:N>  (|) (Supplier
+* Item -O--  <M:N>  --|- (Supplier
 * Maximum cardinality on outer edge, minimum oninner edge
-* Delpartment (|) (O) ---(|) (<) Employee
+* Department -|-O-----|-<- Employee
 
 ![image](https://user-images.githubusercontent.com/8172631/139866533-c1e49082-d3e2-4f10-9751-3b0f71ccc8f0.png)
 
