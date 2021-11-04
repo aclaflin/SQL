@@ -23,7 +23,9 @@ A supplier does not have to supply an item (O) and an item must have a supplier 
 * Maximum cardinality on outer edge, minimum oninner edge
 * Department -|-O-----|-<- Employee
 
+
 ![image](https://user-images.githubusercontent.com/8172631/139866533-c1e49082-d3e2-4f10-9751-3b0f71ccc8f0.png)
+
 
 Weak entity cannot exist without another entity (solid line). Strong entities can exist on their own (represented by dashed connecting line)
 
@@ -36,11 +38,13 @@ Recursive relationships (self joins)
   * can refer many, can only be referred by one, optional on both sides
 * recursive because we don't want duplicated information
 
+
 ![image](https://user-images.githubusercontent.com/8172631/139880386-a234b6c9-6b0d-43bc-ba7a-4f5e127823ac.png)
 
 ![image](https://user-images.githubusercontent.com/8172631/139881016-a63c7fe1-db53-45d7-b0f5-0b49c2c70504.png)
 
 ![image](https://user-images.githubusercontent.com/8172631/139881832-c4036295-2552-499b-b099-09004dca8470.png)
+
 
 # Database design
 Business needs determine design
@@ -49,9 +53,11 @@ Data model is just business view (no primary/foreign keys named)
 
 Add foreign keys to get to logical/ER diagram
 
+
 ![image](https://user-images.githubusercontent.com/8172631/139905290-73cc6536-eafe-4c27-b90f-ae8fcc95f3b0.png)
 
 
 business needs might give constraints table
+
 
 ![image](https://user-images.githubusercontent.com/8172631/139905199-44e4b361-cd55-4962-870c-1f4c538af26b.png)
